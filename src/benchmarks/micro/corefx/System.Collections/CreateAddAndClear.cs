@@ -212,30 +212,5 @@ namespace System.Collections
             return queue;
         }
 
-#if !NETFRAMEWORK // API added in .NET Core 2.0
-        [Benchmark]
-        public ConcurrentQueue<T> ConcurrentQueue()
-        {
-            ConcurrentQueue<T> concurrentQueue = new ConcurrentQueue<T>();
-            foreach (T value in _uniqueValues)
-            {
-                concurrentQueue.Enqueue(value);
-            }
-            concurrentQueue.Clear();
-            return concurrentQueue;
-        }
-
-        [Benchmark]
-        public ConcurrentBag<T> ConcurrentBag()
-        {
-            ConcurrentBag<T> concurrentBag = new ConcurrentBag<T>();
-            foreach (T value in _uniqueValues)
-            {
-                concurrentBag.Add(value);
-            }
-            concurrentBag.Clear();
-            return concurrentBag;
-        }
-#endif
     }
 }

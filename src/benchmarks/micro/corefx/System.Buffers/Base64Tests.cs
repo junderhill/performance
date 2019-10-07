@@ -68,18 +68,6 @@ namespace System.Buffers.Text.Tests
 
         [Benchmark]
         public OperationStatus Base64DecodeDetinationTooSmall() => Base64.DecodeFromUtf8(_encodedBytes, _decodedBytes, out _, out _);
-
-#if !NETFRAMEWORK // API added in .NET Core 2.1
-        [GlobalSetup(Target = nameof(ConvertTryFromBase64Chars))]
-        public void SetupConvertTryFromBase64Chars()
-        {
-            _decodedBytes = ValuesGenerator.Array<byte>(NumberOfBytes);
-            _encodedChars = Convert.ToBase64String(_decodedBytes).ToCharArray();
-        }
-
-        [Benchmark]
-        public bool ConvertTryFromBase64Chars() => Convert.TryFromBase64Chars(_encodedChars, _decodedBytes, out _);
-#endif
     }
 
     // We want to test InPlace methods, which require fresh input for every benchmark invocation.

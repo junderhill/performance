@@ -74,17 +74,6 @@ namespace System.Collections.Tests
             return local;
         }
 
-#if !NETFRAMEWORK // API added in .NET Core 2.0
-        [GlobalSetup(Targets = new [] { nameof(BitArrayRightShift), nameof(BitArrayLeftShift) })]
-        public void Setup_BitArrayShift() => _original = new BitArray(ValuesGenerator.Array<byte>(Size));
-
-        [Benchmark]
-        public void BitArrayRightShift() => _original.RightShift(DefaultShiftCount);
-
-        [Benchmark]
-        public void BitArrayLeftShift() => _original.LeftShift(DefaultShiftCount);
-#endif
-
         [GlobalSetup(Targets = new [] { nameof(BitArrayAnd), nameof(BitArrayOr), nameof(BitArrayXor) })]
         public void Setup_BitArrayAnd()
         {

@@ -28,15 +28,6 @@ namespace System.Tests
         [ArgumentsSource(nameof(Values))]
         public string ToString(ulong value) => value.ToString();
 
-#if !NETFRAMEWORK // API added in .NET Core 2.1
-        [Benchmark]
-        [ArgumentsSource(nameof(Values))]
-        public bool TryFormat(ulong value) => value.TryFormat(new Span<char>(_destination), out _);
-
-        [Benchmark]
-        [ArgumentsSource(nameof(StringValues))]
-        public ulong ParseSpan(string value) => ulong.Parse(value.AsSpan());
-#endif
 
         [Benchmark]
         [ArgumentsSource(nameof(StringValues))]

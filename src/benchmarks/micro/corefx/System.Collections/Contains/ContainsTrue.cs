@@ -63,20 +63,6 @@ namespace System.Collections
             return result;
         }
 
-#if !NETFRAMEWORK && !NETCOREAPP2_1 && !NETCOREAPP2_2
-        [BenchmarkCategory(Categories.Span)]
-        [Benchmark]
-        public bool Span()
-        {
-            bool result = default;
-            Span<T> collection = new Span<T>(_array);
-            T[] found = _found;
-            for (int i = 0; i < found.Length; i++)
-                result ^= collection.Contains(found[i]);
-            return result;
-        }
-#endif
-
         [Benchmark]
         public bool List()
         {

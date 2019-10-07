@@ -45,19 +45,5 @@ namespace System.Tests
         [Benchmark]
         [ArgumentsSource(nameof(StringValuesDecimal))]
         public bool TryParse(string value) => int.TryParse(value, out _);
-
-#if !NETFRAMEWORK // API added in .NET Core 2.1
-        [Benchmark]
-        [ArgumentsSource(nameof(StringValuesDecimal))]
-        public int ParseSpan(string value) => int.Parse(value.AsSpan());
-
-        [Benchmark]
-        [ArgumentsSource(nameof(Values))]
-        public bool TryFormat(int value) => value.TryFormat(new Span<char>(_destination), out _);
-
-        [Benchmark]
-        [ArgumentsSource(nameof(StringValuesDecimal))]
-        public bool TryParseSpan(string value) => int.TryParse(value.AsSpan(), out _);
-#endif
     }
 }

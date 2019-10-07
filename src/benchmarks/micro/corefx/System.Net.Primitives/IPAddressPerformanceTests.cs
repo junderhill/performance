@@ -47,21 +47,5 @@ namespace System.Net.Primitives.Tests
         [Benchmark]
         public long NetworkToHostOrder() => IPAddress.NetworkToHostOrder(s_addr);
 
-#if !NETFRAMEWORK // API added in .NET Core 2.1
-        [Benchmark]
-        [ArgumentsSource(nameof(ByteAddresses))]
-        public IPAddress Ctor_Span(byte[] address)
-            => new IPAddress(new ReadOnlySpan<byte>(address));
-
-        [Benchmark]
-        [ArgumentsSource(nameof(Addresses))]
-        public bool TryFormat(IPAddress address)
-            => address.TryFormat(new Span<char>(_charBuffer), out _);
-        
-        [Benchmark]
-        [ArgumentsSource(nameof(Addresses))]
-        public bool TryWriteBytes(IPAddress address)
-            => address.TryWriteBytes(new Span<byte>(_destination), out _);
-#endif
     }
 }

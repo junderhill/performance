@@ -44,9 +44,5 @@ namespace System.Tests
         [Benchmark]
         public string GuidToString() => _guid.ToString();
 
-#if !NETFRAMEWORK
-        [Benchmark]
-        public bool TryWriteBytes() => _guid.TryWriteBytes(_buffer);
-#endif
     }
 }

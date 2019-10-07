@@ -1,13 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.1;netcoreapp2.2;netcoreapp3.0;</TargetFrameworks>
-    <OutputType>Exe</OutputType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <DebugSymbols>true</DebugSymbols>
+    <OutputType>Library</OutputType>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-
-    <IsARM Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString().StartsWith(`arm`, System.StringComparison.OrdinalIgnoreCase))'">true</IsARM>
   </PropertyGroup>
 
   <ItemGroup>

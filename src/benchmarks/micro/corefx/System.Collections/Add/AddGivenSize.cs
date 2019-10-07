@@ -47,18 +47,6 @@ namespace System.Collections
             return collection;
         }
 
-#if !NETFRAMEWORK // API added in .NET Core 2.0
-        [Benchmark]
-        public HashSet<T> HashSet()
-        {
-            var collection = new HashSet<T>(Size);
-            var uniqueValues = _uniqueValues;
-            for(int i = 0; i < uniqueValues.Length; i++)
-                collection.Add(uniqueValues[i]);
-            return collection;
-        }
-#endif
-
         [Benchmark]
         public Dictionary<T, T> Dictionary()
         {

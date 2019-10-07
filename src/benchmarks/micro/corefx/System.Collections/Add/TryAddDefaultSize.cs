@@ -23,18 +23,6 @@ namespace System.Collections
         [GlobalSetup]
         public void Setup() => _uniqueValues = ValuesGenerator.ArrayOfUniqueValues<T>(Count);
 
-#if !NETFRAMEWORK // API added in .NET Core 2.0
-        [Benchmark]
-        public Dictionary<T, T> Dictionary()
-        {
-            var collection = new Dictionary<T, T>();
-            var uniqueValues = _uniqueValues;
-            for(int i = 0; i < uniqueValues.Length; i++)
-                collection.TryAdd(uniqueValues[i], uniqueValues[i]);
-            return collection;
-        }
-#endif
-
         [Benchmark]
         public ConcurrentDictionary<T, T> ConcurrentDictionary()
         {

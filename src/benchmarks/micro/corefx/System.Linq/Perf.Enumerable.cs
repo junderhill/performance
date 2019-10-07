@@ -200,21 +200,6 @@ namespace System.Linq.Tests
         [ArgumentsSource(nameof(IEnumerableArgument))]
         public void Take_All(LinqTestData input) => input.Collection.Take(LinqTestData.Size - 1).Consume(_consumer);
 
-#if !NETFRAMEWORK
-        public IEnumerable<object> TakeLastArguments()
-        {
-            // TakeLast has 2 code paths: List and IEnumerable
-            // https://github.com/dotnet/corefx/blob/dcf1c8f51bcdbd79e08cc672e327d50612690a25/src/System.Linq/src/System/Linq/Take.SpeedOpt.cs
-
-            yield return LinqTestData.List;
-            yield return LinqTestData.IEnumerable;
-        }
-
-        [Benchmark]
-        [ArgumentsSource(nameof(TakeLastArguments))]
-        public void TakeLastHalf(LinqTestData input) => input.Collection.TakeLast(LinqTestData.Size / 2).Consume(_consumer);
-#endif
-
         // Skip() has no special treatment and it has a single execution path
         // https://github.com/dotnet/corefx/blob/dcf1c8f51bcdbd79e08cc672e327d50612690a25/src/System.Linq/src/System/Linq/Skip.cs
         [Benchmark]
@@ -402,55 +387,5 @@ namespace System.Linq.Tests
         [Benchmark]
         public void EmptyTakeSelectToArray() => Enumerable.Empty<int>().Take(10).Select(i => i).ToArray();
 
-#if !NETFRAMEWORK && !NETCOREAPP2_1 && !NETCOREAPP2_2 // API Available in .NET Core 3.0+
-        // Append() has two execution paths: AppendPrependIterator (a result of another Append or Prepend) and IEnumerable, this benchmark tests both
-        // https://github.com/dotnet/corefx/blob/dcf1c8f51bcdbd79e08cc672e327d50612690a25/src/System.Linq/src/System/Linq/AppendPrepend.cs
-        [Benchmark]
-        [ArgumentsSource(nameof(IEnumerableArgument))]
-        public void Append(LinqTestData input)
-        {
-            IEnumerable<int> result = Enumerable.Empty<int>();
-            foreach (int item in input.Collection)
-            {
-                result = result.Append(item);
-            }
-            result.Consume(_consumer);
-        }
-
-        // Prepend()has two execution paths: AppendPrependIterator (a result of another Append or Prepend) and IEnumerable, this benchmark tests both
-        // https://github.com/dotnet/corefx/blob/dcf1c8f51bcdbd79e08cc672e327d50612690a25/src/System.Linq/src/System/Linq/AppendPrepend.cs
-        [Benchmark]
-        [ArgumentsSource(nameof(IEnumerableArgument))]
-        public void Prepend(LinqTestData input)
-        {
-            IEnumerable<int> result = Enumerable.Empty<int>();
-            foreach (int item in input.Collection)
-            {
-                result = result.Prepend(item);
-            }
-            result.Consume(_consumer);
-        }
-
-        [Benchmark]
-        [ArgumentsSource(nameof(IEnumerableArgument))]
-        public void AppendPrepend(LinqTestData input)
-        {
-            IEnumerable<int> result = Enumerable.Empty<int>();
-            int index = 0;
-            foreach (int item in input.Collection)
-            {
-                if (index % 2 == 0)
-                {
-                    result = result.Append(item);
-                }
-                else
-                {
-                    result = result.Prepend(item);
-                }
-                index++;
-            }
-            result.Consume(_consumer);
-        }
-#endif
     }
 }
