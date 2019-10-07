@@ -1,8 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Title>junderhill.dotnet.benchmarking</Title>
+    <Authors>Jason Underhill</Authors>
+    <Description>Fork of Microsofts dotnet/perfomance code stripped down to be a netstandard2.0 library for benchmarking .NET performance</Description>
+    <PackageProjectUrl>https://github.com/junderhill/performance</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/junderhill/performance</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageVersion>1.0.0</PackageVersion>
+    <PackOnBuild>true</PackOnBuild>
+    <PackageId>junderhill.dotnet.benchmarks.micro</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
